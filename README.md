@@ -11,3 +11,25 @@ The package.json is setup as a commonjs module. This requires us to:
 ## Notes
 
 You can also publish as a `"type": "module"` package, but this is not possible if you need to support Node<12.7.0. It will work for Node>=v12.7.0.
+
+To make this switch, update your package.json to the following:
+
+```json
+{
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "default": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  }
+}
+```
